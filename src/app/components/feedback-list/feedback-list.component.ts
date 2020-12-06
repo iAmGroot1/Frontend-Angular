@@ -7,9 +7,10 @@ import { Feedback } from 'src/model/feedback';
   templateUrl: './feedback-list.component.html',
   styleUrls: ['./feedback-list.component.css']
 })
+
 export class FeedbackListComponent implements OnInit {
   feedbackList:Feedback[]
-  entry:object = {
+  entry = {
     name : 'Rp',
     feedback : 'This is the third one'
   }
@@ -20,11 +21,17 @@ export class FeedbackListComponent implements OnInit {
   ngOnInit(): void {
     this.getDataFromAPI()
   }
+  onClickSubmit(data) {
+    console.log("Entered Email id : " + data.feedback);
+ }
 
-  addData(){
+  addData(data){
+    this.entry.name = data.name
+    this.entry.feedback= data.feedback
     this.service.addData(this.entry).subscribe((res)=>{
       console.log("Added Item")
     })
+    this.getDataFromAPI()
   }
 
   getDataFromAPI(){
